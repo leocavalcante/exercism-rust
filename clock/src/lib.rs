@@ -18,10 +18,7 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        Clock {
-            hours: self.hours,
-            minutes: self.minutes,
-        }
+        Clock::new(self.hours, self.minutes + minutes)
     }
 }
 
