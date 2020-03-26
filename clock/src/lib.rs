@@ -2,28 +2,31 @@ use std::fmt::{Display, Formatter, Result};
 
 #[derive(Debug, PartialEq)]
 pub struct Clock {
-    hours: i32,
-    minutes: i32,
+    time: i32
 }
 
 impl Clock {
-    pub fn new(hours: i32, minutes: i32) -> Self {
-        let minutes = minutes + (hours * 60);
-        let hours = (f64::from(minutes) / 60.0).floor() as i32;
+    const MAX: i32 = 1440; // 24 hours × 60 minutes
 
-        Clock {
-            hours: (24 + (hours % 24)) % 24,
-            minutes: (60 + (minutes % 60)) % 60,
-        }
+    pub fn new(hours: i32, minutes: i32) -> Self {
+        Clock { time: ((hours * 60) + minutes).rem_euclid(Self::MAX) }
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        Clock::new(self.hours, self.minutes + minutes)
+        Clock::new(self.hours(), self.minutes() + minutes)
+    }
+
+    fn hours(&self) -> i32 {
+        self.time / 60
+    }
+
+    fn minutes(&self) -> i32 {
+        self.time.rem_euclid(60)
     }
 }
 
 impl Display for Clock {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        write!(f, "{:02}:{:02}", self.hours, self.minutes)
+        write!(f, "{:02}:{:02}", self.hours(), self.minutes())
     }
 }
