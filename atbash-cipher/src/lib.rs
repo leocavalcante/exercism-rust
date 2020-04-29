@@ -1,8 +1,8 @@
-fn process(char: char) -> String {
+fn process(char: char) -> char {
     if char.is_digit(10) {
-        char.to_string()
+        char
     } else {
-        char::from(122 - ((char as u8) - 97)).to_string()
+        char::from(122 - ((char as u8) - 97))
     }
 }
 
@@ -13,15 +13,14 @@ pub fn encode(plain: &str) -> String {
         .filter(|c| c.is_ascii_alphanumeric())
         .map(process)
         .enumerate()
-        .fold(Vec::<String>::new(), |mut acc, (i, c)| {
+        .fold(String::new(), |mut acc, (i, c)| {
             if i > 0 && i % 5 == 0 {
-                acc.push(" ".into());
+                acc.push(' ');
             }
 
             acc.push(c);
             acc
         })
-        .join("")
 }
 
 pub fn decode(cipher: &str) -> String {
