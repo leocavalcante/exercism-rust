@@ -10,7 +10,7 @@ pub fn encode(plain: &str) -> String {
     plain
         .to_lowercase()
         .chars()
-        .filter(|c| c.is_alphanumeric())
+        .filter(|c| c.is_ascii_alphanumeric())
         .map(process)
         .collect::<Vec<String>>()
         .chunks(5)
@@ -22,7 +22,7 @@ pub fn encode(plain: &str) -> String {
 pub fn decode(cipher: &str) -> String {
     cipher
         .chars()
-        .filter(|c| c.is_alphanumeric())
+        .filter(|c| c.is_ascii_alphanumeric())
         .map(process)
         .collect()
 }
