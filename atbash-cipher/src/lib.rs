@@ -12,11 +12,16 @@ pub fn encode(plain: &str) -> String {
         .chars()
         .filter(|c| c.is_ascii_alphanumeric())
         .map(process)
-        .collect::<Vec<String>>()
-        .chunks(5)
-        .map(|c| c.join(""))
-        .collect::<Vec<String>>()
-        .join(" ")
+        .enumerate()
+        .fold(Vec::<String>::new(), |mut acc, (i, c)| {
+            if i > 0 && i % 5 == 0 {
+                acc.push(" ".into());
+            }
+
+            acc.push(c);
+            acc
+        })
+        .join("")
 }
 
 pub fn decode(cipher: &str) -> String {
