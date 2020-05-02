@@ -2,7 +2,7 @@ fn process(char: char) -> char {
     if char.is_digit(10) {
         char
     } else {
-        char::from(122 - ((char as u8) - 97))
+        char::from(b'z' - ((char as u8) - b'a'))
     }
 }
 
