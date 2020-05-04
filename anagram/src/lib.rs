@@ -1,7 +1,11 @@
 use std::collections::HashSet;
 
 fn sort(input: &str) -> String {
-    let mut chars: Vec<&str> = input.split("").collect();
+    let mut chars: Vec<String> = input
+        .chars()
+        .map(|c| c.to_string())
+        .collect();
+
     chars.sort();
     chars.join("")
 }
