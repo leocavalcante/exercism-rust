@@ -1,9 +1,9 @@
 use std::collections::HashSet;
 
-fn sort(input: &str) -> String {
-    let mut chars: Vec<String> = input.chars().map(|c| c.to_string()).collect();
+fn sort(input: &str) -> Vec<char> {
+    let mut chars: Vec<char> = input.chars().collect();
     chars.sort();
-    chars.join("")
+    chars
 }
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'a str> {
@@ -16,6 +16,6 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &[&'a str]) -> HashSet<&'
             let lc_poss = poss.to_lowercase();
             sort(&lc_poss) == sorted && lc_poss != lc_word
         })
-        .cloned()
+        .copied()
         .collect()
 }
